@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./js/template-web.js"></script>
+    <script id="temp" type="text/html">
+        <h1>我的名字是: {{name}}</h1>
+        <p>你好压,大傻瓜
+            {{name}}
+            {{name}}
+            {{name}}
+            {{name}}
+        </p>
+    </script>
+    <script>
+        // 1.引入template-web.js文件
+        // 2. 定义模板,注意指定script的id和type属性
+        // 3. 准备数据对象(变量,数组等)
+        var obj = {
+            "name": 'abc'
+        }
+        // 4. 调用template函数,为模板分配数据,获得渲染结果
+        var htmlStr = template('temp', obj)
+        console.log(htmlStr)
+    </script>
+</body>
+
+</html>
