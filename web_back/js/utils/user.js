@@ -1,4 +1,4 @@
-var baseUrl = 'http://localhost:8000/'
+var baseUrl = 'http://localhost:8000/';
 
 
 var user = {
