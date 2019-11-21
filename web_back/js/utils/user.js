@@ -1,16 +1,16 @@
-var baseUrl = 'http://localhost:8000/';
+
 
 
 var user = {
     logout: function (callback) {
         // 2. 调用接口
-        $.post(baseUrl + 'admin/logout', function (res) {
+        $.post(APIURLS.user_logout, function (res) {
             callback(res);
         })
     },
     login: function (userName, userPassword, callback) {
 
-        $.post(baseUrl + 'admin/login', {
+        $.post(APIURLS.user_login, {
             user_name: userName,
             password: userPassword
         }, function (res) {
@@ -19,7 +19,7 @@ var user = {
     },
 
     getInfo: function (callback) {
-        $.get(baseUrl + 'admin/getuser', function (res) {
+        $.get(APIURLS.user_getInfo, function (res) {
             callback(res)
         })
     }
