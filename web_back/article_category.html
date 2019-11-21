@@ -28,8 +28,8 @@
                         <th class="text-center" width="100">操作</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody id="categoryContainer">
+                    <!-- <tr>
                         <td>未分类</td>
                         <td>uncategorized</td>
                         <td class="text-center">
@@ -37,7 +37,7 @@
                                 class="btn btn-info btn-xs">编辑</a>
                             <a href="javascript:deleteTr( 1 );" class="btn btn-danger btn-xs">删除</a>
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td>奇趣事</td>
@@ -59,15 +59,7 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <td>爱旅行</td>
-                        <td>travel</td>
-                        <td class="text-center">
-                            <a href="javascript:editTr({&quot;id&quot;:&quot;4&quot;,&quot;slug&quot;:&quot;travel&quot;,&quot;name&quot;:&quot;爱旅行&quot;});"
-                                class="btn btn-info btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 4 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
+
                 </tbody>
                 <tfoot>
                     <tr>
@@ -131,9 +123,27 @@
         })
     </script>
     <script src="./js/utils/category.js"></script>
+    <script src="./js/template-web.js"></script>
+    <!-- 定义模板 -->
+    <script id="tempTable" type="text/html">
+    {{each data item}}
+    <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.slug}}</td>
+        <td class="text-center">
+            <a href="javascript:editTr({&quot;id&quot;:&quot;4&quot;,&quot;slug&quot;:&quot;travel&quot;,&quot;name&quot;:&quot;爱旅行&quot;});"
+                class="btn btn-info btn-xs">编辑</a>
+            <a href="javascript:deleteTr( 4 );" class="btn btn-danger btn-xs">删除</a>
+        </td>
+    </tr>
+    </script>
     <script>
         category.show(function (res) {
-            console.log('从服务器取回的数据', res)
+            console.log('从服务器取回的数据', res);
+
+            var htmlStr = template('tempTable', res);
+            console.log(htmlStr);
+            $('#categoryContainer').html(htmlStr);
         })
     </script>
 </body>
