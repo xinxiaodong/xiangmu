@@ -79,7 +79,26 @@
             </form>
         </div>
     </div>
+    <script src="./js/utils/category.js"></script>
+    <script src="./js/utils/config.js"></script>
+    <script src="./js/template-web.js"></script>
+    <script id="temp_cate" type="text/html">
+    {{each data item}}
+    <option value="">{{item.name}}</option>
+    {{/each}}
+    </script>
+    <script>
+        // 先查询出所有的文章类型信息并显示
+        category.show(function (res) {
 
+            // 用模板引擎技术去显示数据
+            if (res.code === 200) {
+                var htmlStr = template("temp_cate", res)
+                $('#cate_container').html(htmlStr)
+            }
+
+        })
+    </script>
 </body>
 
 </html>
