@@ -10,4 +10,7 @@ var APIURLS = {
     category_del: baseUrl + 'admin/category_delete',
     category_add: baseUrl + 'admin/category_add',
     category_edit: baseUrl + 'admin/category_edit',
+    // 文章搜索的地址
+    article_show: baseUrl + 'admin/search',
+    article_del: baseUrl + 'admin/article_delete'
 } 
