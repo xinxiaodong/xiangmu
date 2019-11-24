@@ -77,7 +77,7 @@
             </table>
 
             <div class="row text-center">
-                <ul id="pagination" class="pagination pagination-sm">
+                <ul id="pagination" class=" pagination-sm">
 
                 </ul>
             </div>
@@ -86,7 +86,7 @@
     </div>
 
 
-    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="./js/jquery-1.12.4.min.js"></script>
     <!-- 分页插件 -->
     <script src="./js/jquery.twbsPagination.js"></script>
     <script src="./js/utils/config.js"></script>
@@ -107,7 +107,7 @@
 
 
         <td class="text-center">
-            <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
+            <a href="article_edit.html?id={{item.id}}" class="btn btn-default btn-xs">编辑</a>
             <a href="javascript:;" data-id="{{item.id}}" class="btn btn-danger btn-xs del">删除</a>
         </td>
     </tr>
@@ -186,9 +186,9 @@
                 // 显示数据
                 $('#tableContainer').html(htmlStr);
 
-                // 需要销毁分页插件,以再次更新
+                // 需要销毁分页插件, 以再次更新
                 if (res.totalPage != curTotalPage) {
-                    $('#twbsPagination').twbsPagination('destroy')
+                    $('#pagination').twbsPagination('destroy')
                 }
                 curTotalPage = res.totalPage
                 // 显示分页效果

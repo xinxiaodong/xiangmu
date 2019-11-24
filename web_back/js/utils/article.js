@@ -11,5 +11,11 @@ var article = {
         $.get(APIURLS.article_del, { 'id': id }, function (res) {
             console.log(res)
         })
+    },
+    getDetail: function (id, callback) {
+        console.log('getDetail的参数', id)
+        $.get(APIURLS.article_show, { id: id }, function (res) {
+            callback(res)
+        })
     }
 }
