@@ -17,5 +17,17 @@ var article = {
         $.get(APIURLS.article_show, { id: id }, function (res) {
             callback(res)
         })
+    },
+    edit: function (fd, callback) {
+        $.ajax({
+            type: 'post',
+            url: 'APIURLS.article_edit',
+            data: fd,
+            processData: false, // 不要让jquery去处理formData数据
+            contentType: false,  // 不设置默认的请求头
+            success: function (res) {
+                callback(res)
+            }
+        })
     }
 }
