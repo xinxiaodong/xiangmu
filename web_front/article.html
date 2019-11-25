@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
 
 <body>
@@ -60,8 +61,7 @@
             </div>
             <h3 class="article_title" id="article_title">马斯克的新花样？连接人脑和电脑的初创公司又筹了一笔钱</h3>
             <div class="article_info"><span id="article_author">杰克</span> 发布于 <span
-                    id="article_date"></span>&nbsp;&nbsp;&nbsp;分类:
-                <span id="article_type"></span>&nbsp;&nbsp;&nbsp;阅读:
+                    id="article_date"></span>&nbsp;&nbsp;&nbsp;分类: <span id="article_type"></span>&nbsp;&nbsp;&nbsp;阅读:
                 (98)&nbsp;&nbsp;&nbsp;评论: (0)</div>
             <div class="article_con" id="article_content">
 
@@ -99,35 +99,8 @@
                 4条评论
             </div>
 
-            <div class="comment_list_con">
-                <div class="comment_detail_list">
-                    <div class="person_pic fl">乔</div>
-                    <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
-                    <div class="comment_text fl">
-                        遏制茅台酒价格过快上涨，多渠道供给，就不一定要买，租茅台酒也可以的，租售同权。开发共有产权茅台酒，让老百姓喝得起茅台酒，饮者有其酒。
-                    </div>
-                </div>
-                <div class="comment_detail_list">
-                    <div class="person_pic fl">段</div>
-                    <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
-                    <div class="comment_text fl">
-                        遏制茅台酒价格过快上涨，多渠道供给，就不一定要买，租茅台酒也可以的，租售同权。开发共有产权茅台酒，让老百姓喝得起茅台酒，饮者有其酒。
-                    </div>
-                </div>
-                <div class="comment_detail_list">
-                    <div class="person_pic fl">虚</div>
-                    <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
-                    <div class="comment_text fl">
-                        遏制茅台酒价格过快上涨，多渠道供给，就不一定要买，租茅台酒也可以的，租售同权。开发共有产权茅台酒，让老百姓喝得起茅台酒，饮者有其酒。
-                    </div>
-                </div>
-                <div class="comment_detail_list">
-                    <div class="person_pic fl">王</div>
-                    <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
-                    <div class="comment_text fl">
-                        遏制茅台酒价格过快上涨，多渠道供给，就不一定要买，租茅台酒也可以的，租售同权。开发共有产权茅台酒，让老百姓喝得起茅台酒，饮者有其酒。
-                    </div>
-                </div>
+            <div class="comment_list_con" id="commentContainer">
+
             </div>
         </div>
         <div class="right_con setfl">
@@ -206,56 +179,119 @@
         <p>CopyRight © 2019 深圳大事件信息技术股份有限公司 All Rights Reserved</p>
         <p>电话：0755-****888 粤ICP备*******8号</p>
     </div>
+
+    <script id="temp_comment" type="text/html">
+    {{each data item}}
+    <div class="comment_detail_list">
+        <div class="person_pic fl">{{item.firstName}}</div>
+        <div class="name_time fl"><b>{{item.name}}</b><span>{{item.relativeDt}}</span></div>
+        <div class="comment_text fl">
+            {{item.content}}
+        </div>
+    </div>
+    {{/each}}
+    </script>
+
     <script src="./js/jquery-1.12.4.min.js"></script>
-    <script src="./js/utils/article.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/template-web.js"></script>
     <script src="./js/utils/config.js"></script>
+    <script src="./js/utils/article.js"></script>
     <script src="./js/utils/category.js"></script>
     <script src="./js/utils/comment.js"></script>
+
+    <script src="./js/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs/locale/zh-cn"></script>
+    <script src="./js/relative.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.3/bootbox.min.js'></script>
     <script>
+        dayjs.extend(dayjs_plugin_relativeTime);
+        dayjs.locale('zh-cn'); // 全局设置，中文
+
         // 1. 从地址栏中取出id
-        var id = location.search.substr(4);
+        // http://127.0.0.1:5500/web_front/article.html?id=1574513631472 
+        // location.search ===> ?id=1574513631472 
+        //  substr(4) ?id=1574513631472 ===> 1574513631472 
+        var id = location.search.substr(4)
+        // alert(id)
         // 2. 根据id去获取文章的详情
         article.getDetail(id, function (res) {
-            var typeId = res.data.type
-            console.log(res)
-            //  3. 显示把数据显示在页面上 
-            $('#article_title').html(res.data.title);
-            $('#article_author').html(res.data.author);
-            $('#article_date').html(res.data.date);
-            $('#article_content').html(res.data.content);
+            var typeId = res.data.type;
+            console.log(res);
+            //// 把数据显示在页面上
+            // 3. 显示
+            $('#article_title').html(res.data.title)
+            $('#article_author').html(res.data.author)
+            $('#article_date').text(res.data.date)
 
+            $('#article_content').html(res.data.content)
 
-            // 由于取回来的是编号  应该要再次请求
+            // 由于在详情接口中，取回来的是类型的编号
+            // 而显示出来应该是文本。所以还要再次请求
             category.show(function (result) {
-                console.log(result.data)
-
+                // console.log(result.data);
+                // result.data = [{id,name},{}]
+                // 目标就是在result.data中找出id 是 1的那个元素
                 var rs = result.data.find(function (item) {
                     if (item.id == typeId) {
                         return true
                     }
                 })
+                console.log(rs);
+                // 如果找到了
                 if (rs) {
                     $('#article_type').text(rs.name)
                 }
             })
-            $('#article_type').html(res.data.type);
         })
 
         // 添加评论
         $('#btnAdd').click(function () {
-            // 收集信息
+            // 1. 收集信息
             var name = $('#name').val().trim()
             var content = $('#content').val().trim()
-            // 对信息简单判断
+            // 2. 对信息简单判断
             if (name === '' || content === '') {
+                // alert(' 不能为空 ')
+                bootbox.alert("不能为空");
+                // bootbox.confirm("你确定要删除吗？", function(result){ 
+                //     console.log('你的选择' + result); 
+                // });
                 return;
             }
-            // 调用方法
+            // 3. 调用方法
             comment.add(name, content, id, function (res) {
-                console.log(res)
+                console.log(res);
+                getAndShow()
             })
         })
+        getAndShow();
+
+        function getAndShow() {
+            comment.get(id, function (res) {
+                console.log(res);
+                // 模板引擎来渲染数据
+                // 给取回来的数据，加工一下。
+
+                // 翻转数组
+                res.data.reverse();
+                res.data.forEach(function (item) {
+
+                    item.relativeDt = dayjs(item.dt).toNow()
+                    console.log(item);
+                    item.firstName = item.name.substr(0, 1)
+                    // console.log(item);
+                })
+
+                var htmlStr = template('temp_comment', res);
+                console.log(htmlStr);
+                $('#commentContainer').html(htmlStr)
+
+
+            })
+        }
     </script>
+
 </body>
 
 </html>
